@@ -2,6 +2,8 @@
 
 Apache Calcite 是独立于存储与执行的SQL解析、优化引擎，广泛应用于各种离线、搜索、实时查询引擎，如Drill、Hive、Kylin、Solr、flink、Samza等。
 
+![架构图](./images/calcitea.png)
+
 偶然的机会了解到这个项目，然后就深深的为止着迷了，很感慨为什么没能早几年遇到她。也是为了更加了解她，光读文档不过瘾了，所以想动手翻译一下。 但是本人英文水平有限，又是第一次干这种事，所以欢迎大家帮我勘正谬误。 [联系我：dafei1288@sina.com](mailto:dafei1288@sina.com) 欢迎转载，请注明出处。
 
 我们先从引导文件开始：[原文链接](http://calcite.apache.org/docs/tutorial.html)
