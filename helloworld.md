@@ -7,11 +7,12 @@
 这里我们的目标是：
 
 1. 数据在一个自己可控的位置，本文写在一个Java文件的静态块里 
-1. 可以执行一个简单查询
+1. 可以执行一个简单查询并返回数据
 
 # model.json
 
 我习惯gradle，所以起手构建一个空白gradle项目，添加依赖：
+
 `compile group: 'org.apache.calcite', name: 'calcite-core', version: '1.17.0'`
 
 在`resources`下构建一个`bookshop.json`：
