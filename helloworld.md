@@ -330,8 +330,15 @@ public static void main(String[] args) {
     }
 ```
 
+# 技术总结
+1. `Calcite`能提供一个透明的JDBC实现，使用者可以按自己的方式规划存储，这个特性在数据分析中，其实更适合，比如在多源、跨源联合查询上，威力巨大。
+2. 按接口实现相关`schema`和`table`，目前只实现了流程上跑通，单不代表他们就是这样，在这里我们还有很长的路要走
+3. 自定义视图配上model上配置的参数，也许可以作为数据权限一种实现
+
+
 # 后记
 
-目前只提供了全表扫面，条件判断表连接都还不行，待日后更新。代码库传送门
-:
-https://github.com/dafei1288/CalciteHelloworld.git
+上述项目代码库传送门：`https://github.com/dafei1288/CalciteHelloworld.git`
+
+目前只提供了全表扫面，条件判断表连接都还不行，待日后更新。
+而`Calcite`强大的优化工作还没登场呢。
