@@ -4,7 +4,7 @@ Apache Calcite 是独立于存储与执行的SQL解析、优化引擎，广泛�
 
 ![架构图](./images/calcitea.png)
 
-偶然的机会了解到这个项目，然后就深深的为止着迷了，很感慨为什么没能早几年遇到她。也是为了更加了解她，光读文档不过瘾了，所以想动手翻译一下。 但是本人英文水平有限，又是第一次干这种事，所以欢迎大家帮我勘正谬误。 [联系我：dafei1288@sina.com](mailto:dafei1288@sina.com) 欢迎转载，请注明出处。
+偶然的机会了解到这个项目，然后就深深的为之着迷了，很感慨为什么没能早几年遇到她。也是为了更加了解她，光读文档不过瘾了，所以想动手翻译一下。 但是本人英文水平有限，又是第一次干这种事，所以欢迎大家帮我勘正谬误。 [联系我：dafei1288@sina.com](mailto:dafei1288@sina.com) 欢迎转载，请注明出处。
 
 我们先从引导文件开始：[原文链接](http://calcite.apache.org/docs/tutorial.html)
 
@@ -476,7 +476,7 @@ public class CsvProjectTableScanRule extends RelOptRule {
 
 `onMatch`方法创了一个新的表达式并且执行[RelOptRuleCall.transformTo()](http://calcite.apache.org/apidocs/org/apache/calcite/plan/RelOptRuleCall.html#transformTo(org.apache.calcite.rel.RelNode))这个方法来通知规则执行成功。
 
-## 查新优化流程
+## 查询优化流程
 
 
 关于`Calcite`的查询计划有多智能有很多可以说的，但我们在这里不会讨论这个问题。最聪明的做法是为执行器规划的作者减轻负担(` The cleverness is designed to take the burden off you, the writer of planner rules.`)。
