@@ -1,7 +1,10 @@
-家期盼已久的1.9已经剪支有些日子了，兴冲冲的切换到跑去编译，我在之前的文章《尝尝Blink》里也介绍过如何编译，本文只针对不同的地方以及遇到的坑做一些说明，希望对遇到同样问题的朋友有一些帮助。
+大家期盼已久的1.9已经剪支有些日子了，兴冲冲的切换到跑去编译，我在之前的文章《尝尝Blink》里也介绍过如何编译，本文只针对不同的地方以及遇到的坑做一些说明，希望对遇到同样问题的朋友有一些帮助。
 
-首先，切换分支 git checkout release-1.9 这次我们不修改pom文件，将镜像添加到settings.xml里，在文章末尾，我会分享出来我用的文件全文，这里就不再赘述了。 直接使用 clean package -DskipTests -Dfast进行编译
+首先，切换分支 `git checkout release-1.9` 
+这次我们不修改pom文件，将镜像添加到`settings.xml`里，在文章末尾，我会分享出来我用的文件全文，这里就不再赘述了。
+直接使用 `clean package  -DskipTests -Dfast`进行编译
 
+```
 ​[INFO] Reactor Summary for flink 1.9-SNAPSHOT:
 [INFO] 
 [INFO] force-shading ...................................... SUCCESS [  2.233 s]
@@ -177,8 +180,10 @@
 [ERROR] 
 [ERROR] After correcting the problems, you can resume the build with the command
 [ERROR]   mvn <goals> -rf :flink-table-api-java
-这个问题 未报告的异常错误X; 必须对其进行捕获或声明以便抛出 问题卡了我好久，查看源码
+```
 
+这个问题 `未报告的异常错误X; 必须对其进行捕获或声明以便抛出` 问题卡了我好久，查看源码 
+```
 		private CalculatedQueryOperation<?> unwrapFromAlias(CallExpression call) {
 			List<Expression> children = call.getChildren();
 			List<String> aliases = children.subList(1, children.size())
@@ -196,8 +201,9 @@
 				(TableFunctionDefinition) tableCall.getFunctionDefinition();
 			return createFunctionCall(tableFunctionDefinition, aliases, tableCall.getResolvedChildren());
 		}
-再看一下ValidationException的代码
-
+```
+再看一下`ValidationException`的代码
+```
 @PublicEvolving
 public class ValidationException extends RuntimeException {
 
@@ -210,22 +216,29 @@ public class ValidationException extends RuntimeException {
 	}
 }
 
-似乎也没啥问题，然后翻了半天，终于在stackoverflow上找到问题所在了 https://stackoverflow.com/questions/25523375/java8-lambdas-and-exceptions 可以在前面加上异常类型 .<ValidationException>orElseThrow(() -> new ValidationException("Unexpected alias: " + alias))) 还有几个文件，也要修改，这个问题也可以通过更换JDK来规避。
+```
+似乎也没啥问题，然后翻了半天，终于在stackoverflow上找到问题所在了
+`https://stackoverflow.com/questions/25523375/java8-lambdas-and-exceptions`
+可以在前面加上异常类型 `.<ValidationException>orElseThrow(() -> new ValidationException("Unexpected alias: " + alias)))` 还有几个文件，也要修改，这个问题也可以通过更换JDK来规避。
+
 
 当时使用JDK
-
+```
 E:\devlop\envs\Java8x64bak\bin>java -version
 java version "1.8.0_60"
 Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
 Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)
+```
 更换JDK
-
+```
 E:\devlop\envs\Java8x64\bin>java -version
 java version "1.8.0_131"
 Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
-编译成功
+```
 
+编译成功
+```
 [INFO] Reactor Summary for flink 1.9-SNAPSHOT:
 [INFO] 
 [INFO] force-shading ...................................... SUCCESS [  3.341 s]
@@ -388,10 +401,12 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 [INFO] Total time:  29:11 min
 [INFO] Finished at: 2019-07-24T16:03:03+08:00
 [INFO] ------------------------------------------------------------------------
+```
+
 去dist里启动玩耍了。
 
-分享一下我的 settings.xml
-
+分享一下我的 `settings.xml`
+```
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
@@ -672,3 +687,10 @@ under the License.
   </activeProfiles>
   -->
 </settings>
+
+```
+
+
+
+
+
